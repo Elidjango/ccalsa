@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+		<!--ICONOS-->
+		<link rel="stylesheet" href="/static/css/material-icons.css">
+
+		<!--ESTILOS - BOOTSTRAP-->
+		<link rel="stylesheet" href="/static/css/bootstrap/bootstrap-gird.min.css">
+		<link rel="stylesheet" href="/static/css/bootstrap/bootstrap-reboot.min.css">
+		<link rel="stylesheet" href="/static/css/bootstrap/bootstrap.min.css">
+
+		<!--ESTILOS - PERSONALES-->
+		<link rel="stylesheet" href="/static/css/estilos-generales.css">
+
+		<title>Cabras / Calsa </title>
+	</head>
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand logo-letra" href="/"><span class="logo-letra_c">C</span>Calsa</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li style="margin-right: 1em;" class="text-right nav-item active">
+            <a class="nav-link" href="/">Inicio <span class="sr-only">(current)</span></a>
+          </li>
+          <li style="margin-right: 1em;" class="text-right nav-item">
+            <a class="nav-link" href="#">Misión</a>
+          </li>
+          <li style="margin-right: 1em;" class="text-right nav-item">
+            <a class="nav-link" href="#">Visión</a>
+          </li>
+          <li style="margin-right: 1em;" class="text-right nav-item">
+            <a class="nav-link" href="/login/">Iniciar sesión</a>
+          </li>
+          <li style="margin-right: 1em;" class="text-right nav-item">
+            <a class="nav-link" href="/crear_usuario/">Crear cuenta</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+		<hr>
+
+  	<div class="row">
+      <div class="container col-xs-10 col-xs-offset-1 col-ms-10 col-ms-offset-1 col-md-10 col-md-offset-1" style="position: relative; margin-top: 2em;">
+      {% block content %}
+        <h2 class="text-center">Cabras Calsa <small>regístro de usuario</small></h2>
+        <div style="">
+          <form class="form form-register col-sm-12 col-lg-12" method="post" action="{% url 'crear_usuario' %}" onsubmit="return validar();">
+            {% csrf_token %}
+            <div class="content">
+							<div class="form-group">
+								<input maxlength="30" type="text" id="id_first_name" class="form-control" name="first_name" placeholder="NOMBRE *" autocomplete="off" required>
+							</div>
+							<div class="form-group">
+								<input maxlength="30" type="text" id="id_last_name" class="form-control" name="last_name" placeholder="APELLIDO *" autocomplete="off" required>
+							</div>
+							<div class="form-group">
+								<input maxlength="254" type="email" id="id_email" class="form-control" name="email" placeholder="CORREO TIPO GMAIL * Ejemplo@gmail.com" autocomplete="off" required>
+							</div>
+							<div class="form-group">
+                <input maxlength="30" type="text" id="id_username" class="form-control" name="username" autocomplete="off" placeholder="NOMBRE DE USUARIO *" required>
+              </div>
+              <div class="form-group">
+                <input maxlength="20" type="password" id="id_password" class="form-control" name="password" autocomplete="off" placeholder="CONTRASEÑA *" required>
+              </div>
+            </div>
+
+						{% if form.errors %}
+            <div class="alert alert-danger">
+              <div class="container-fluid">
+              	<div class="alert-icon">
+                  <i class="material-icons">error_outline</i>
+                </div>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                	<span aria-hidden="true"><i class="material-icons">clear</i></span>
+                </button>
+								<style media="screen">
+									ul {
+										list-style: none;
+									}
+								</style>
+								<b>Alerta de Error:</b>
+								{{ form.first_name.errors }}
+								{{ form.last_name.errors }}
+								{{ form.email.errors }}
+								{{ form.username.errors }}
+								{{ form.password.errors }}
+              </div>
+            </div>
+            {% endif %}
+
+						<div class="footer text-center">
+              <button class="btn btn-simple btn-primary btn-lg" style="margin-top: -1em; background: none; border: none;">
+								<i class="material-icons" style="cursor: pointer; color: #4899de; font-size:1.5em;">send</i>
+							</button>
+              <input type="hidden" name="next" value="{{ next }}">
+              <a style="text-decoration: none; color: red;" href="/"><i class="material-icons" style="font-size:2em; width: 110px;">close</i></a>
+            </div>
+            <hr style="margin: 0;">
+						<div style="text-align: center; width: 100%;">
+							<p>¿Ya tienes cuenta? <a style="line-height: 2em;" href="/login/">¡Logueate!</a></p>
+						</div>
+          </form>
+        </div>
+
+				<br><br><br><br>
+
+				<footer class="footer footer-footer col-xs-12 col-xs-offset-0 col-ms-12 col-ms-offset-0 col-md-12 col-md-offset-0 col-lg-12 col-lg-offset-0">
+          <div class="container footer-footer_contenido">
+          	<nav class="pull-left">
+              <ul class="reset">
+                <li>
+                  <a href="#">CabrasCalsa</a>
+                </li>
+                <li>
+                  <a href="#">Sobre Nosotros</a>
+                </li>
+              </ul>
+            </nav>
+          	<div class="copyright pull-right">
+              &copy; 2017-2018, Hecho Por Programadores UPTP JJ "MONTILLA" para una mejor web.
+            </div>
+          </div>
+        </footer>
+        {% endblock %}
+      </div>
+    </div>
+
+		<!--SCRIPT - JQUERY-->
+		<script src="/static/js/JQuery.min.js"></script>
+
+		<!--SCRIPT - BOOTSTRAP-->
+		<script src="/static/js/bootstrap/bootstrap.min.js"></script>
+	</body>
+</html>
